@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.7 on win32)" generated="20230513 15:39:55.513" rpa="false" schemaversion="3">
+<suite id="s1" name="JigadeTestes" source="C:\Users\carol\Desktop\JigadeTestes">
+<suite id="s1-s1" name="Tests" source="C:\Users\carol\Desktop\JigadeTestes\Tests">
+<suite id="s1-s1-s1" name="Cadastros" source="C:\Users\carol\Desktop\JigadeTestes\Tests\Cadastros.robot">
+<test id="s1-s1-s1-t1" name="Caso de teste para adicionar os resultados esperados para um componente" line="15">
+<kw name="Dado que o arquivo esteja no diretório" library="componentesDigitais">
+<arg>./Cadastros/resultadosEsperadosDoComponente.txt</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${result}</var>
+<arg>File Should Exist</arg>
+<arg>${arquivo_Componente}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="File Should Exist" library="OperatingSystem">
+<arg>${arquivo_Componente}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<msg timestamp="20230513 15:39:57.229" level="INFO" html="true">File '&lt;a href="file://C:\Users\carol\Desktop\JigadeTestes\Cadastros\resultadosEsperadosDoComponente.txt"&gt;C:\Users\carol\Desktop\JigadeTestes\Cadastros\resultadosEsperadosDoComponente.txt&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20230513 15:39:57.228" endtime="20230513 15:39:57.229"/>
+</kw>
+<msg timestamp="20230513 15:39:57.230" level="INFO">${result} = True</msg>
+<status status="PASS" starttime="20230513 15:39:57.227" endtime="20230513 15:39:57.230"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${arquivo_Componente}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230513 15:39:57.231" level="INFO">${arquivo_Componente} = ./Cadastros/resultadosEsperadosDoComponente.txt</msg>
+<status status="PASS" starttime="20230513 15:39:57.230" endtime="20230513 15:39:57.232"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${result}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20230513 15:39:57.233" endtime="20230513 15:39:57.239"/>
+</kw>
+<status status="PASS" starttime="20230513 15:39:57.225" endtime="20230513 15:39:57.239"/>
+</kw>
+<kw name="Quando o arquivo estiver preenchido com os dados dos resultados do componente" library="componentesDigitais">
+<kw name="Run" library="OperatingSystem">
+<var>${tamanhoDoArquivo}</var>
+<arg>ls -l "${arquivo_Componente}" | awk '{print $5}'</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<msg timestamp="20230513 15:39:57.258" level="INFO">Running command 'ls -l "./Cadastros/resultadosEsperadosDoComponente.txt" | awk '{print $5}' 2&gt;&amp;1'.</msg>
+<msg timestamp="20230513 15:39:57.279" level="INFO">${tamanhoDoArquivo} = </msg>
+<status status="PASS" starttime="20230513 15:39:57.241" endtime="20230513 15:39:57.279"/>
+</kw>
+<kw name="Should Not Be Equal As Strings" library="BuiltIn">
+<arg>${tamanhoDoArquivo}</arg>
+<arg>0</arg>
+<doc>Fails if objects are equal after converting them to strings.</doc>
+<status status="PASS" starttime="20230513 15:39:57.279" endtime="20230513 15:39:57.280"/>
+</kw>
+<status status="PASS" starttime="20230513 15:39:57.240" endtime="20230513 15:39:57.281"/>
+</kw>
+<kw name="Então adicione na base de dados" library="componentesDigitais">
+<kw name="Add Document In The Collection" library="database">
+<var>${result}</var>
+<arg>${arquivo_Componente}</arg>
+<msg timestamp="20230513 15:39:57.867" level="INFO">${result} = &lt;pymongo.results.InsertOneResult object at 0x0000022080862FE0&gt;</msg>
+<status status="PASS" starttime="20230513 15:39:57.283" endtime="20230513 15:39:57.869"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${result}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20230513 15:39:57.872" endtime="20230513 15:39:57.877"/>
+</kw>
+<status status="PASS" starttime="20230513 15:39:57.281" endtime="20230513 15:39:57.878"/>
+</kw>
+<doc>Caso de Testes para adicionar os resultados esperados</doc>
+<status status="PASS" starttime="20230513 15:39:57.223" endtime="20230513 15:39:57.880"/>
+</test>
+<status status="PASS" starttime="20230513 15:39:55.582" endtime="20230513 15:39:57.890"/>
+</suite>
+<status status="PASS" starttime="20230513 15:39:55.576" endtime="20230513 15:39:57.897"/>
+</suite>
+<status status="PASS" starttime="20230513 15:39:55.523" endtime="20230513 15:39:57.907"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="JigadeTestes">JigadeTestes</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tests">JigadeTestes.Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="Cadastros">JigadeTestes.Tests.Cadastros</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,23 @@
+{
+  "componente": "",
+  "case1": {
+    "entrada1": ,
+    "entrada2": ,
+    "saida": 
+  },
+  "case2": {
+    "entrada1": ,
+    "entrada2": ,
+    "saida": 
+  },
+  "case3": {
+    "entrada1": ,
+    "entrada2": ,
+    "saida": 
+  },
+  "case4": {
+    "entrada1": ,
+    "entrada2": ,
+    "saida": 
+  }
+}

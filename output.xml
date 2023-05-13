@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.7 on win32)" generated="20230513 14:03:59.245" rpa="false" schemaversion="3">
+<suite id="s1" name="TestedeComponentes" source="C:\Users\carol\Desktop\JigadeTestes\Tests\TestedeComponentes.robot">
+<test id="s1-t1" name="Caso de teste para componentes eletrônicos" line="22">
+<kw name="Obtendo o esquematico de ligacao entre o DAQ e o componente a ser testado" type="SETUP">
+<kw name="Retorne o esquemático de ligação do componente com o DAQ" library="componentesDigitais">
+<arg>74HC08</arg>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${NomedoComponente}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230513 14:04:01.010" level="INFO">${NomedoComponente} = 74HC08</msg>
+<status status="PASS" starttime="20230513 14:04:01.010" endtime="20230513 14:04:01.010"/>
+</kw>
+<kw name="Return Esquematico De Ligacao" library="componentes_digitais">
+<var>&amp;{esquematico}</var>
+<arg>${NomedoComponente}</arg>
+<msg timestamp="20230513 14:04:01.973" level="INFO">tem o esquematico {'nomeDocomponente': 'AND', 'portaLogica': '74HC08', 'Numero do pino do DAQ(p0_0):44': 'Numero do pino do componente para entrada de sinal:1', 'Numero do pino do DAQ(p0_1):45': 'Numero do pino do componente para entrada de sinal:2', 'Numero do pino do DAQ(p0_2):46': 'Numero do pino do componente para entrada de sinal:4', 'Numero do pino do DAQ(p0_3):47': 'Numero do pino do componente para entrada de sinal:5', 'Numero do pino do DAQ(p0_4):50': 'Numero do pino do componente para entrada de sinal:9', 'Numero do pino do DAQ(p0_5):51': 'Numero do pino do componente para entrada de sinal:10', 'Numero do pino do DAQ(p0_6):52': 'Numero do pino do componente para entrada de sinal:12', 'Numero do pino do DAQ(p0_7):53': 'Numero do pino do componente para entrada de sinal:13', 'Numero do pino do DAQ(p0_8):55': 'Numero do pino do componente para saida de sinal:3', 'Numero do pino do DAQ(p0_10):57': 'Numero do pino do componente para saida de sinal:6', 'Numero do pino do DAQ(p0_12):60': 'Numero do pino do componente para saida de sinal:8', 'Numero do pino do DAQ(p0_14):62': 'Numero do pino do componente para saida de sinal:11', 'Numero do pino do DAQ para alimentacao(+5V):42 ou 10': 'Numero do pino do componente para alimentacao de5:14', 'Numero do pino GND do DAQ(DGND):64': 'Numero do pino do componente para de GND0:7'}
+tipo do esquematico &lt;class 'dict'&gt;</msg>
+<msg timestamp="20230513 14:04:01.973" level="INFO">&amp;{esquematico} = { nomeDocomponente=AND | portaLogica=74HC08 | Numero do pino do DAQ(p0_0):44=Numero do pino do componente para entrada de sinal:1 | Numero do pino do DAQ(p0_1):45=Numero do pino do componente para ent...</msg>
+<status status="PASS" starttime="20230513 14:04:01.011" endtime="20230513 14:04:01.974"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${esquematico}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230513 14:04:01.974" endtime="20230513 14:04:01.978"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>&amp;{esquematico}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230513 14:04:01.979" level="INFO">&amp;{esquematico} = { nomeDocomponente=AND | portaLogica=74HC08 | Numero do pino do DAQ(p0_0):44=Numero do pino do componente para entrada de sinal:1 | Numero do pino do DAQ(p0_1):45=Numero do pino do componente para ent...</msg>
+<status status="PASS" starttime="20230513 14:04:01.978" endtime="20230513 14:04:01.979"/>
+</kw>
+<status status="PASS" starttime="20230513 14:04:01.010" endtime="20230513 14:04:01.980"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230513 14:04:03.981" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20230513 14:04:01.980" endtime="20230513 14:04:03.981"/>
+</kw>
+<status status="PASS" starttime="20230513 14:04:01.009" endtime="20230513 14:04:03.981"/>
+</kw>
+<kw name="Dado que o DAQ esteja conectado a porta USB" library="componentesDigitais">
+<kw name="Check Device Connected" library="componentes_digitais">
+<var>${deviceConnected}</var>
+<msg timestamp="20230513 14:04:04.042" level="INFO">oi
+local &lt;nidaqmx.system._collections.device_collection.DeviceCollection object at 0x00000294BB09DDB0&gt;</msg>
+<msg timestamp="20230513 14:04:04.042" level="INFO">${deviceConnected} = False</msg>
+<status status="PASS" starttime="20230513 14:04:03.981" endtime="20230513 14:04:04.042"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${deviceConnected}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<msg timestamp="20230513 14:04:04.043" level="FAIL">'False' should be true.</msg>
+<status status="FAIL" starttime="20230513 14:04:04.042" endtime="20230513 14:04:04.043"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${deviceConnected}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230513 14:04:04.044" endtime="20230513 14:04:04.044"/>
+</kw>
+<status status="FAIL" starttime="20230513 14:04:03.981" endtime="20230513 14:04:04.044"/>
+</kw>
+<kw name="Quando for realizado o teste do componente escolhido" library="componentesDigitais">
+<status status="NOT RUN" starttime="20230513 14:04:04.044" endtime="20230513 14:04:04.044"/>
+</kw>
+<kw name="Entao verifique que o componente esta funcionando" library="componentesDigitais">
+<status status="NOT RUN" starttime="20230513 14:04:04.045" endtime="20230513 14:04:04.045"/>
+</kw>
+<doc>Caso de Testes de CI's escolhidos pelo usuário</doc>
+<status status="FAIL" starttime="20230513 14:04:01.007" endtime="20230513 14:04:04.046">'False' should be true.</status>
+</test>
+<status status="FAIL" starttime="20230513 14:03:59.247" endtime="20230513 14:04:04.048"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TestedeComponentes">TestedeComponentes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

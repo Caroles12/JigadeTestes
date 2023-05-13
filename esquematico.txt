@@ -1,0 +1,18 @@
+{
+    "nomeDocomponente": "AND",
+    "portaLogica": "74HC08",
+    "Numero do pino do DAQ(p0_0):44": "Numero do pino do componente para entrada de sinal:1",
+    "Numero do pino do DAQ(p0_1):45": "Numero do pino do componente para entrada de sinal:2",
+    "Numero do pino do DAQ(p0_2):46": "Numero do pino do componente para entrada de sinal:4",
+    "Numero do pino do DAQ(p0_3):47": "Numero do pino do componente para entrada de sinal:5",
+    "Numero do pino do DAQ(p0_4):50": "Numero do pino do componente para entrada de sinal:9",
+    "Numero do pino do DAQ(p0_5):51": "Numero do pino do componente para entrada de sinal:10",
+    "Numero do pino do DAQ(p0_6):52": "Numero do pino do componente para entrada de sinal:12",
+    "Numero do pino do DAQ(p0_7):53": "Numero do pino do componente para entrada de sinal:13",
+    "Numero do pino do DAQ(p0_8):55": "Numero do pino do componente para saida de sinal:3",
+    "Numero do pino do DAQ(p0_10):57": "Numero do pino do componente para saida de sinal:6",
+    "Numero do pino do DAQ(p0_12):60": "Numero do pino do componente para saida de sinal:8",
+    "Numero do pino do DAQ(p0_14):62": "Numero do pino do componente para saida de sinal:11",
+    "Numero do pino do DAQ para alimentacao(+5V):42 ou 10": "Numero do pino do componente para alimentacao de5:14",
+    "Numero do pino GND do DAQ(DGND):64": "Numero do pino do componente para de GND0:7"
+}

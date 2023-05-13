@@ -1,0 +1,28 @@
+{
+  "nome": "",
+  "tipoDeComponente": {
+    "portaLogica": ""
+  },
+  "entradas": {
+    "numeroDoPino1": ,
+    "numeroDoPino2": ,
+    "numeroDoPino3": ,
+    "numeroDoPino5": ,
+    "numeroDoPino6": ,
+    "numeroDoPino8": 
+  },
+  "saidas": {
+    "numeroDoPino1": ,
+    "numeroDoPino2": ,
+    "numeroDoPino3": ,
+    "numeroDoPino4": ,
+    "numeroDoPino5": ,
+    "numeroDoPino6": 
+  },
+  "alimentacao": {
+    "vcc": ,
+    "gnd": ,
+    "pinoAlimentacao": "",
+    "pinoGNDalimentacao": ""
+  }
+}
