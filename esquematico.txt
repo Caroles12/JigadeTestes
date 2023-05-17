@@ -1,6 +1,6 @@
 {
-    "nomeDocomponente": "AND",
-    "portaLogica": "74HC08",
+    "nomeDocomponente": "74HC32",
+    "tipoDeComponente": "OR",
     "Numero do pino do DAQ(p0_0):44": "Numero do pino do componente para entrada de sinal:1",
     "Numero do pino do DAQ(p0_1):45": "Numero do pino do componente para entrada de sinal:2",
     "Numero do pino do DAQ(p0_2):46": "Numero do pino do componente para entrada de sinal:4",

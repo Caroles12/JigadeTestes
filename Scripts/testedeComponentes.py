@@ -11,8 +11,8 @@ from nidaqmx.constants import (LineGrouping)
 pp = pprint.PrettyPrinter(indent=4)
 
 def make_the_test_for_component(esquematico):
-    componentName = esquematico["nomeDocomponente"] 
-    expected_results=return_expected_result(esquematico["nomeDocomponente"])
+    componentName = esquematico["tipoDeComponente"] 
+    expected_results=return_expected_result(esquematico["tipoDeComponente"])
     pinosEntradaDaq = []
     pinosSaidaDaq = []
     for pinoDaq,pinoComponente in esquematico.items():
@@ -64,7 +64,7 @@ def get_values_to_write(expected_results,componentName):
         else:
             valoresentrada1.append(False)    
     
-    if componentName != 'NOT':
+    if len(componentName) > 0 :
         valoresentrada2=[]    
         for entrada2 in range(1,totaldecolunas+1):   
             valorentrada2 = df.at["entrada2",'case'+str(entrada2)]
@@ -145,7 +145,8 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
     readLines = get_DAQlines_to_read(record,lines,pinosSaidaUtilizados) 
     lines = mix_read_and_write_lines(allLines,readLines,componentName)  
     
-    if componentName != 'NOT':  
+    if len(componentName) > 0:  
+        print('esse é o componentNam2e',componentName)
         for value1,value2 in values:    
             for i in range(0, len(readLines)):
                 keyValue = readLines[i]
@@ -156,13 +157,18 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
 
                     try:
                         print("N Lines 1 Sample Boolean Write (Error Expected): ")
-                        print(task.write([value1, value2],auto_start=True))
+                        #print(task.write([value1, value2],auto_start=True))
+                        #PARA AJUSTAR NO DIA DOS TESTES
+                        #task.write([value1, value2],auto_start=True)
+                        results = read_digital_ports(keyValue,value1,value2,expected_results)
+                        #result.append(results)
                     except nidaqmx.DaqError as e:
                         print(e)
 
                     with nidaqmx.Task() as task2:
                         task2.di_channels.add_di_chan("Dev1/port0/line8", line_grouping=LineGrouping.CHAN_PER_LINE)
                         data = task2.read()
+
                 
                 
               
@@ -245,8 +251,8 @@ if __name__ == '__main__':
     #print('todo o esquematico',esquematico) 
     #device_connected = check_device_connected()
     #make_the_component_power_supply(esquematico)
-    #results = make_the_test_for_component(esquematico)
-    #endResult = check_results(results)
+    results = make_the_test_for_component(esquematico)
+    endResult = check_results(results)
     #print('valor de end',endResult)
 
 

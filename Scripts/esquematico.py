@@ -15,8 +15,10 @@ def return_esquematico_de_ligacao(componente1):
     componente = return_component(componente1)
     daq_pins = return_DAQ_schematic()
     tipoDoComponente = componente["tipoDeComponente"]
-    if "portaLogica" in tipoDoComponente:
-        componenteEsperado = tipoDoComponente["portaLogica"]
+    print('componente values',tipoDoComponente.values())
+    print('olha o type ai', type(tipoDoComponente))
+    if  len(tipoDoComponente) > 0:
+        componenteEsperado = list(tipoDoComponente.values())[0]
         nomedoComponente = componente["nome"]
         entradasDoComponente = componente["entradas"]
         pinosDasEntradas = entradasDoComponente.values()
@@ -30,8 +32,8 @@ def return_esquematico_de_ligacao(componente1):
         pinoAlimentacaoDAQ = daq_pins["alimentacao"]["+5Vpino1"]
         pinoAlimentacaoDAQ2 = daq_pins["alimentacao"]["+5Vpino2"]
         esquematico = {}
-        esquematico["nomeDocomponente"] = componenteEsperado
-        esquematico["portaLogica"] = nomedoComponente
+        esquematico["nomeDocomponente"] = nomedoComponente
+        esquematico["tipoDeComponente"] = componenteEsperado
         pinosUtilizadosDAQ = list(pinosDigitaisDaqAll)
         pinosDigitaisDaqGND = []
         pinosDigitaisDaq = []

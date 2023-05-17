@@ -7,12 +7,13 @@ Test Setup    Obtendo o esquematico de ligacao entre o DAQ e o componente a ser 
 
 *** Variables ***
 ${componenteEscolhido}=    74HC08
+${tempoDeEspera}=  5 minutes      
 
 *** Keywords ***
 
 Obtendo o esquematico de ligacao entre o DAQ e o componente a ser testado
     Retorne o esquemático de ligação do componente com o DAQ    ${componenteEscolhido} 
-    Sleep    2s
+    Sleep    ${tempoDeEspera}
  
 
 *** Test Cases ***

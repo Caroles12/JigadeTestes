@@ -31,7 +31,9 @@ def return_expected_result(componentName):
     collection=connect_to_database("ResultadosEsperados")
     cursor = collection.find({"componente":componentName})
     for record in cursor:
+        print('é o recorddd',record)
         return record
+    
 
 def return_allLinesDaq_digitalVersion():
     collection = connect_to_database("DAQ")
