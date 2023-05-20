@@ -41,7 +41,9 @@ def check_results(results):
     for i in results:
         for j in i:
             for x in j:
+                print('valor de x',x)
                 listResult.append(x)
+    print('resultado final',listResult)            
     
     return len(set(listResult)) == 1 
 
@@ -144,30 +146,45 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
         lines.append(alllines)     
     readLines = get_DAQlines_to_read(record,lines,pinosSaidaUtilizados) 
     lines = mix_read_and_write_lines(allLines,readLines,componentName)  
-    
+    print('todo o values para escrever',values)
     if len(componentName) > 0:  
         print('esse é o componentNam2e',componentName)
-        for value1,value2 in values:    
+        for value1,value2 in values:   
             for i in range(0, len(readLines)):
+                print('vai começarr')
                 keyValue = readLines[i]
                 with nidaqmx.Task() as task:
                     task.do_channels.add_do_chan(
                         "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_FOR_ALL_LINES
                     )
+                    print('line de escrita',lines[keyValue][0],lines[keyValue][1])
+
+                    #SE O DELAY NAO RESOLVER
+                    #task.triggers.start_trigger.cfg_dig_edge_start_trig("/Dev1/StartTrigger")
+                    # Configura a leitura para ocorrer após a escrita
+                    #task.triggers.start_trigger.delay_units = nidaqmx.constants.DigitalWidthUnits.TICKS
+                    #task.triggers.start_trigger.delay = 1  # Ajuste o valor do atraso conforme necessário
+
 
                     try:
                         print("N Lines 1 Sample Boolean Write (Error Expected): ")
-                        #print(task.write([value1, value2],auto_start=True))
+                        print('valores escrito1',value1)
+                        print('valores escrito2',value2)
+                        print(task.write([value1, value2],auto_start=True))
                         #PARA AJUSTAR NO DIA DOS TESTES
                         #task.write([value1, value2],auto_start=True)
+                        #PODE SER NECESSARIO USAR ASSIM COM O TRIGGER
+                        #task.write([value1, value2],auto_start=False)
+                        #task.start()
+                        time.sleep(10)
                         results = read_digital_ports(keyValue,value1,value2,expected_results)
-                        #result.append(results)
+                        result.append(results)
                     except nidaqmx.DaqError as e:
                         print(e)
 
-                    with nidaqmx.Task() as task2:
-                        task2.di_channels.add_di_chan("Dev1/port0/line8", line_grouping=LineGrouping.CHAN_PER_LINE)
-                        data = task2.read()
+                    #with nidaqmx.Task() as task2:
+                    #    task2.di_channels.add_di_chan("Dev1/port0/line8", line_grouping=LineGrouping.CHAN_PER_LINE)
+                    #    data = task2.read()
 
                 
                 
@@ -228,8 +245,10 @@ def read_digital_ports(line,value1,value2,expected_results):
     with nidaqmx.Task() as task:
         task.di_channels.add_di_chan("Dev1/port0/line" + line,
                                     line_grouping=LineGrouping.CHAN_PER_LINE)
+        time.sleep(20)
         data = task.read()
-        time.sleep(10)
+        print('valor do dado lido',data)
+        #time.sleep(10)
         values = {'entrada1': value1, 'entrada2': value2, 'saida':data}
         allresults2 = compare_the_values(expectedResultForThisCase,values)
         allresults.append(allresults2)   

@@ -4,12 +4,13 @@ Library    ./../Scripts/testedeComponentes.py
 Library    ./../Scripts/database.py
 Library    OperatingSystem 
 Library    JSONLibrary
+Library    BuiltIn
 
 *** Variables ***
 ${NomedoComponente}
 &{esquematico}
 ${deviceConnected}
-&{results}
+@{results}
 ${endResult}
 ${arquivo_Componente} 
 
@@ -30,11 +31,12 @@ Dado que o DAQ esteja conectado a porta USB
     Log To Console    ${deviceConnected}  
 
 Quando for realizado o teste do componente escolhido
-    &{results}=    Make The Test For Component    ${esquematico}
-    Set Global Variable     &{results}
+    @{results}=    Make The Test For Component    ${esquematico}
+    Set Global Variable     @{results}
 
 Entao verifique que o componente esta funcionando 
-    ${endResult}=    Check Results   ${results} 
+    ${endResult}=    Check Results   ${results}
+    Should Be True    ${endResult}
     IF  ${endResult}
         Log    Testes Funcionaram
     END

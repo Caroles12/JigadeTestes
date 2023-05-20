@@ -6,14 +6,14 @@ Resource    ./../Resources/componentesDigitais.robot
 Test Setup    Obtendo o esquematico de ligacao entre o DAQ e o componente a ser testado
 
 *** Variables ***
-${componenteEscolhido}=    74HC08
-${tempoDeEspera}=  5 minutes      
+${componenteEscolhido}=    74HC32
+${tempoDeEspera}=  2s      
 
 *** Keywords ***
 
 Obtendo o esquematico de ligacao entre o DAQ e o componente a ser testado
     Retorne o esquemático de ligação do componente com o DAQ    ${componenteEscolhido} 
-    Sleep    ${tempoDeEspera}
+    #Sleep    ${tempoDeEspera}
  
 
 *** Test Cases ***
