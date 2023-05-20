@@ -5,6 +5,7 @@ import time
 from esquematico import return_esquematico_de_ligacao
 from database import return_expected_result,return_allLinesDaq_digitalVersion
 from nidaqmx.constants import (LineGrouping)
+from nidaqmx.constants import WAIT_INFINITELY
 
 #.\teste.bat
 
@@ -153,11 +154,31 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
             for i in range(0, len(readLines)):
                 print('vai começarr')
                 keyValue = readLines[i]
-                with nidaqmx.Task() as task:
-                    task.do_channels.add_do_chan(
+                #pode ser q precise trocar o sample rate
+                sampleRate = 50000
+                with nidaqmx.Task() as read_task, nidaqmx.Task() as write_task:
+                    write_task.do_channels.add_do_chan(
                         "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_FOR_ALL_LINES
                     )
+                    read_task.di_channels.add_di_chan("Dev1/port0/line" + keyValue,
+                                    line_grouping=LineGrouping.CHAN_PER_LINE)
                     print('line de escrita',lines[keyValue][0],lines[keyValue][1])
+
+                    for task in (read_task, write_task):
+                        task.timing.cfg_samp_clk_timing(rate=sampleRate, source='OnboardClock', samps_per_chan=nsamples)
+
+                    write_task.triggers.start_trigger.cfg_dig_edge_start_trig(
+                                                    read_task.triggers.start_trigger.term)
+                    
+                    write_task.write([value1, value2], auto_start=False)
+
+                    write_task.start()  
+
+    
+                    indata = read_task.read(1, timeout=WAIT_INFINITELY)
+
+                    results = compare_results(indata,value1,value2,expected_results)
+                    result.append(results)
 
                     #SE O DELAY NAO RESOLVER
                     #task.triggers.start_trigger.cfg_dig_edge_start_trig("/Dev1/StartTrigger")
@@ -166,21 +187,21 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
                     #task.triggers.start_trigger.delay = 20  # Ajuste o valor do atraso conforme necessário
 
                 
-                    try:
-                        print("N Lines 1 Sample Boolean Write (Error Expected): ")
-                        print('valores escrito1',value1)
-                        print('valores escrito2',value2)
-                        print(task.write([value1, value2],auto_start=True))
+                    #try:
+                    #    print("N Lines 1 Sample Boolean Write (Error Expected): ")
+                    #    print('valores escrito1',value1)
+                    #    print('valores escrito2',value2)
+                    #    print(task.write([value1, value2],auto_start=True))
                         #PARA AJUSTAR NO DIA DOS TESTES
                         #task.write([value1, value2],auto_start=True)
                         #PODE SER NECESSARIO USAR ASSIM COM O TRIGGER
                         #task.write([value1, value2],auto_start=False)
                         #task.start()
-                        time.sleep(20)
-                        results = read_digital_ports(keyValue,value1,value2,expected_results)
-                        result.append(results)
-                    except nidaqmx.DaqError as e:
-                        print(e)
+                    #    time.sleep(20)
+                    #    results = read_digital_ports(keyValue,value1,value2,expected_results)
+                    #    result.append(results)
+                    #except nidaqmx.DaqError as e:
+                    #    print(e)
 
                     #with nidaqmx.Task() as task2:
                     #    task2.di_channels.add_di_chan("Dev1/port0/line8", line_grouping=LineGrouping.CHAN_PER_LINE)
@@ -229,6 +250,15 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
     
 
     return result
+
+def compare_results(readData,value1,value2,expected_results):
+    allresults = []
+    expectedResultForThisCase = get_the_expected_results_for_the_correct_case(value1,value2,expected_results.items())
+    values = {'entrada1': value1, 'entrada2': value2, 'saida':readData}
+    allresults2 = compare_the_values(expectedResultForThisCase,values)
+    allresults.append(allresults2)   
+    return allresults
+
 
 def get_the_expected_results_for_the_correct_case(value1,value2,expected_results):
     for i in expected_results:
