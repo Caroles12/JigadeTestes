@@ -7,22 +7,24 @@
     "numeroDoPino1": ,
     "numeroDoPino2": ,
     "numeroDoPino3": ,
+    "numeroDoPino4": ,
     "numeroDoPino5": ,
-    "numeroDoPino6": ,
+    "numeroDoPino6": 
+    "numeroDoPino7": ,
     "numeroDoPino8": 
   },
   "saidas": {
     "numeroDoPino1": ,
     "numeroDoPino2": ,
     "numeroDoPino3": ,
-    "numeroDoPino4": ,
-    "numeroDoPino5": ,
-    "numeroDoPino6": 
+    "numeroDoPino4": 
   },
   "alimentacao": {
     "vcc": ,
+    "pinoAlimentacao": ""
+  },
+  "referencia": {
     "gnd": ,
-    "pinoAlimentacao": "",
-    "pinoGNDalimentacao": ""
+    "pinoGND": 
   }
 }

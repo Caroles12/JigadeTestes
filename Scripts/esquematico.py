@@ -24,9 +24,9 @@ def return_esquematico_de_ligacao(componente1):
         pinosDasEntradas = entradasDoComponente.values()
         saidasDoComponente = componente["saidas"].values()
         valorAlimentacaoDoComponente = componente["alimentacao"]["vcc"]
-        valorGNDDoComponente = componente["alimentacao"]["pinoGNDalimentacao"]
+        valorGNDDoComponente = componente["referencia"]["pinoGND"]
         pinoAlimentacao = componente["alimentacao"]["pinoAlimentacao"]
-        pinoGND = componente["alimentacao"]["gnd"]
+        pinoGND = componente["referencia"]["gnd"]
         pinosDigitaisDaqAll = daq_pins["pinosDigitais"].values()
         #pinosAnalogicosDAQ = daq_pins["pinosanalogicos"].values()
         pinoAlimentacaoDAQ = daq_pins["alimentacao"]["+5Vpino1"]
@@ -102,7 +102,7 @@ def cria_esquematico_para_o_segundo_componente(componente,pinosDisponiveis,esque
     pinosDasEntradas = entradasDoComponente.values()
     saidasDoComponente = componente["saidas"].values()
     valorAlimentacaoDoComponente = componente["alimentacao"]["vcc"]
-    valorGNDDoComponente = componente["alimentacao"]["pinoGNDalimentacao"]
+    valorGNDDoComponente = componente["alimentacao"]["pinoGND"]
     pinoAlimentacao = componente["alimentacao"]["pinoAlimentacao"]
     pinoGND = componente["alimentacao"]["gnd"]
 

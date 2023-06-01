@@ -165,7 +165,8 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
                     print('line de escrita',lines[keyValue][0],lines[keyValue][1])
 
                     for task in (read_task, write_task):
-                        task.timing.cfg_samp_clk_timing(rate=sampleRate, source='OnboardClock', samps_per_chan=nsamples)
+                        #talvez trocar o samples per chanles pra 1??
+                        task.timing.cfg_samp_clk_timing(rate=sampleRate, source='OnboardClock', samps_per_chan=len(value1))
 
                     write_task.triggers.start_trigger.cfg_dig_edge_start_trig(
                                                     read_task.triggers.start_trigger.term)
@@ -300,8 +301,8 @@ if __name__ == '__main__':
     #print('todo o esquematico',esquematico) 
     #device_connected = check_device_connected()
     #make_the_component_power_supply(esquematico)
-    results = make_the_test_for_component(esquematico)
-    endResult = check_results(results)
+    #results = make_the_test_for_component(esquematico)
+    #endResult = check_results(results)
     #print('valor de end',endResult)
 
 
