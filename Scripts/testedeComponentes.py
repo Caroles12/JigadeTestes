@@ -124,17 +124,14 @@ def get_DAQlines_to_read(record, lines, portasUtilizadas):
 def mix_read_and_write_lines(writeDaqLines,readDaqLines,componentName):
     j=0
     final = {}
-    if componentName == 'NOT':
-        for i in range(0,len(readDaqLines)):
-            item = readDaqLines[i]
-            final[item] = writeDaqLines[i]
-    else:    
-        for i in range(0,len(readDaqLines)):
-            item = readDaqLines[i]
-            final[item] = [writeDaqLines[j],writeDaqLines[j+1]]  
-            j+=2
+  
+    for i in range(0,len(readDaqLines)):
+        item = readDaqLines[i]
+        final[item] = [writeDaqLines[j],writeDaqLines[j+1]]  
+        j+=2
+        
     return final
-    
+
 
 
 def write_digital_ports(portasUtilizadas, values, componentName,expected_results,pinosSaidaUtilizados):
