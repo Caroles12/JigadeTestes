@@ -69,7 +69,7 @@ def return_esquematico_de_ligacao(componente1):
                 keysDaqUtilizadas.append(keysDAQ[ind]) 
                     
         #pinosAnalogicos = list(pinosAnalogicosDAQ)
-        esquematico["Numero do pino do DAQ para alimentacao(+5V):" + str(pinoAlimentacaoDAQ) + " ou " + str(pinoAlimentacaoDAQ2)] = "Numero do pino do componente para alimentacao de" + str(valorAlimentacaoDoComponente)  + ":" + str(pinoAlimentacao)    
+        esquematico["Numero do pino do DAQ para alimentacao(+5V):" + str(pinoAlimentacaoDAQ) + " ou " + str(pinoAlimentacaoDAQ2)] = "Numero do pino do componente para alimentacao de" + str(valorAlimentacaoDoComponente)  + "V:" + str(pinoAlimentacao)    
         esquematico["Numero do pino GND do DAQ(DGND):" + str(daq_pins["pinosDigitais"]["DGND"])] = "Numero do pino do componente para de GND" + str(pinoGND) + ":" + str(valorGNDDoComponente)
         #for pinosDigitaisGND in pinosDigitaisDaqGND:
 

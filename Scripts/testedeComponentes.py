@@ -155,7 +155,7 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
                 keyValue = readLines[i]
                 with nidaqmx.Task() as task:
                     task.do_channels.add_do_chan(
-                        "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_FOR_ALL_LINES
+                        "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_PER_LINE
                     )
                     print('line de escrita',lines[keyValue][0],lines[keyValue][1])
 
@@ -176,7 +176,7 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
                         #PODE SER NECESSARIO USAR ASSIM COM O TRIGGER
                         #task.write([value1, value2],auto_start=False)
                         #task.start()
-                        time.sleep(20)
+                        #time.sleep(2)
                         results = read_digital_ports(keyValue,value1,value2,expected_results)
                         result.append(results)
                     except nidaqmx.DaqError as e:
@@ -245,9 +245,9 @@ def read_digital_ports(line,value1,value2,expected_results):
     with nidaqmx.Task() as task:
         task.di_channels.add_di_chan("Dev1/port0/line" + line,
                                     line_grouping=LineGrouping.CHAN_PER_LINE)
-        time.sleep(20)
+        time.sleep(10)
         data = task.read()
-        print('valor do dado lido',data)
+        print('valor do dado',data, "no line",line)
         #time.sleep(10)
         values = {'entrada1': value1, 'entrada2': value2, 'saida':data}
         allresults2 = compare_the_values(expectedResultForThisCase,values)
@@ -266,12 +266,12 @@ def check_device_connected():
   return False
 
 if __name__ == '__main__':
-    esquematico=return_esquematico_de_ligacao("74HC32")
+    esquematico=return_esquematico_de_ligacao("74HC08")
     #print('todo o esquematico',esquematico) 
     #device_connected = check_device_connected()
     #make_the_component_power_supply(esquematico)
     results = make_the_test_for_component(esquematico)
     endResult = check_results(results)
-    #print('valor de end',endResult)
+    print('valor de end',endResult)
 
 

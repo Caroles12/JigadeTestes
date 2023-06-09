@@ -148,6 +148,7 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
     readLines = get_DAQlines_to_read(record,lines,pinosSaidaUtilizados) 
     lines = mix_read_and_write_lines(allLines,readLines,componentName)  
     print('todo o values para escrever',values)
+    sampleRate = 40000
     if len(componentName) > 0:  
         print('esse é o componentNam2e',componentName)
         for value1,value2 in values:   
@@ -155,21 +156,21 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
                 print('vai começarr')
                 keyValue = readLines[i]
                 #pode ser q precise trocar o sample rate
-                sampleRate = 50000
                 with nidaqmx.Task() as read_task, nidaqmx.Task() as write_task:
                     write_task.do_channels.add_do_chan(
-                        "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_FOR_ALL_LINES
+                        "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1]
                     )
-                    read_task.di_channels.add_di_chan("Dev1/port0/line" + keyValue,
-                                    line_grouping=LineGrouping.CHAN_PER_LINE)
+                    read_task.di_channels.add_di_chan("Dev1/port0/line" + keyValue)
                     print('line de escrita',lines[keyValue][0],lines[keyValue][1])
 
-                    for task in (read_task, write_task):
+                    #for task in (read_task, write_task):
                         #talvez trocar o samples per chanles pra 1??
-                        task.timing.cfg_samp_clk_timing(rate=sampleRate, source='OnboardClock', samps_per_chan=len(value1))
+                    #    task.timing.cfg_samp_clk_timing(rate=sampleRate, source='OnboardClock', samps_per_chan=10)
 
-                    write_task.triggers.start_trigger.cfg_dig_edge_start_trig(
-                                                    read_task.triggers.start_trigger.term)
+                    #write_task.triggers.start_trigger.cfg_dig_edge_start_trig(
+                    #
+                    #                                 read_task.triggers.start_trigger.term)
+                    
                     
                     write_task.write([value1, value2], auto_start=False)
 
@@ -177,6 +178,8 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
 
     
                     indata = read_task.read(1, timeout=WAIT_INFINITELY)
+
+                    print('valor do dado lindo',indata, "no line",keyValue)
 
                     results = compare_results(indata,value1,value2,expected_results)
                     result.append(results)
@@ -297,7 +300,7 @@ def check_device_connected():
   return False
 
 if __name__ == '__main__':
-    esquematico=return_esquematico_de_ligacao("74HC32")
+    esquematico=return_esquematico_de_ligacao("74HC08")
     #print('todo o esquematico',esquematico) 
     #device_connected = check_device_connected()
     #make_the_component_power_supply(esquematico)

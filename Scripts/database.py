@@ -23,7 +23,7 @@ def return_component(componentName):
     
 def return_DAQ_schematic():
     collection = connect_to_database("DAQ")
-    cursor = collection.find({"nomeEquipamento":"DAQ2"})
+    cursor = collection.find({"nomeEquipamento":"Dev1"})
     for record in cursor:
         return record        
 
@@ -37,7 +37,7 @@ def return_expected_result(componentName):
 
 def return_allLinesDaq_digitalVersion():
     collection = connect_to_database("DAQ")
-    cursor = collection.find({"nomeEquipamento":"DAQ2"})
+    cursor = collection.find({"nomeEquipamento":"Dev1"})
     for record in cursor:
         return record["pinosDigitais"]
     
