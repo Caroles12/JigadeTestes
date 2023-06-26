@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.7 on win32)" generated="20230602 21:04:34.471" rpa="false" schemaversion="3">
+<suite id="s1" name="JigadeTestes" source="C:\Users\carol\Desktop\JigadeTestes">
+<suite id="s1-s1" name="Tests" source="C:\Users\carol\Desktop\JigadeTestes\Tests">
+<suite id="s1-s1-s1" name="TestedeComponentes" source="C:\Users\carol\Desktop\JigadeTestes\Tests\TestedeComponentes.robot">
+<test id="s1-s1-s1-t1" name="Caso de teste para componentes eletronicos" line="21">
+<kw name="Obtendo o esquematico de ligacao entre o DAQ e o componente a ser testado" type="SETUP">
+<kw name="Retorne o esquemático de ligação do componente com o DAQ" library="componentesDigitais">
+<arg>${componenteEscolhido}</arg>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${NomedoComponente}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230602 21:04:36.140" level="INFO">${NomedoComponente} = 74HC32</msg>
+<status status="PASS" starttime="20230602 21:04:36.139" endtime="20230602 21:04:36.140"/>
+</kw>
+<kw name="Return Esquematico De Ligacao" library="testedeComponentes">
+<var>&amp;{esquematico}</var>
+<arg>${NomedoComponente}</arg>
+<msg timestamp="20230602 21:04:38.134" level="INFO">componente values dict_values(['OR'])
+olha o type ai &lt;class 'dict'&gt;
+tem o esquematico {'nomeDocomponente': '74HC32', 'tipoDeComponente': 'OR', 'Numero do pino do DAQ(p0_0):44': 'Numero do pino do componente para entrada de sinal:1', 'Numero do pino do DAQ(p0_1):45': 'Numero do pino do componente para entrada de sinal:2', 'Numero do pino do DAQ(p0_2):46': 'Numero do pino do componente para entrada de sinal:4', 'Numero do pino do DAQ(p0_3):47': 'Numero do pino do componente para entrada de sinal:5', 'Numero do pino do DAQ(p0_4):50': 'Numero do pino do componente para entrada de sinal:9', 'Numero do pino do DAQ(p0_5):51': 'Numero do pino do componente para entrada de sinal:10', 'Numero do pino do DAQ(p0_6):52': 'Numero do pino do componente para entrada de sinal:12', 'Numero do pino do DAQ(p0_7):53': 'Numero do pino do componente para entrada de sinal:13', 'Numero do pino do DAQ(p0_8):55': 'Numero do pino do componente para saida de sinal:3', 'Numero do pino do DAQ(p0_10):57': 'Numero do pino do componente para saida de sinal:6', 'Numero do pino do DAQ(p0_12):60': 'Numero do pino do componente para saida de sinal:8', 'Numero do pino do DAQ(p0_14):62': 'Numero do pino do componente para saida de sinal:11', 'Numero do pino do DAQ para alimentacao(+5V):42 ou 10': 'Numero do pino do componente para alimentacao de5:14', 'Numero do pino GND do DAQ(DGND):64': 'Numero do pino do componente para de GND0:7'}
+tipo do esquematico &lt;class 'dict'&gt;</msg>
+<msg timestamp="20230602 21:04:38.137" level="INFO">&amp;{esquematico} = { nomeDocomponente=74HC32 | tipoDeComponente=OR | Numero do pino do DAQ(p0_0):44=Numero do pino do componente para entrada de sinal:1 | Numero do pino do DAQ(p0_1):45=Numero do pino do componente para...</msg>
+<status status="PASS" starttime="20230602 21:04:36.142" endtime="20230602 21:04:38.140"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${esquematico}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230602 21:04:38.142" endtime="20230602 21:04:38.163"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>&amp;{esquematico}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230602 21:04:38.164" level="INFO">&amp;{esquematico} = { nomeDocomponente=74HC32 | tipoDeComponente=OR | Numero do pino do DAQ(p0_0):44=Numero do pino do componente para entrada de sinal:1 | Numero do pino do DAQ(p0_1):45=Numero do pino do componente para...</msg>
+<status status="PASS" starttime="20230602 21:04:38.163" endtime="20230602 21:04:38.165"/>
+</kw>
+<status status="PASS" starttime="20230602 21:04:36.138" endtime="20230602 21:04:38.165"/>
+</kw>
+<status status="PASS" starttime="20230602 21:04:36.136" endtime="20230602 21:04:38.165"/>
+</kw>
+<kw name="Dado que o DAQ esteja conectado a porta USB" library="componentesDigitais">
+<kw name="Check Device Connected" library="testedeComponentes">
+<var>${deviceConnected}</var>
+<msg timestamp="20230602 21:04:38.295" level="INFO">entrouuu
+device Device(name=Dev1)
+Device Name: Dev1, Product Type: USB-6212
+Input channels: ['Dev1/ai0', 'Dev1/ai1', 'Dev1/ai2', 'Dev1/ai3', 'Dev1/ai4', 'Dev1/ai5', 'Dev1/ai6', 'Dev1/ai7', 'Dev1/ai8', 'Dev1/ai9', 'Dev1/ai10', 'Dev1/ai11', 'Dev1/ai12', 'Dev1/ai13', 'Dev1/ai14', 'Dev1/ai15']
+Output channels: ['Dev1/ao0', 'Dev1/ao1']</msg>
+<msg timestamp="20230602 21:04:38.296" level="INFO">${deviceConnected} = True</msg>
+<status status="PASS" starttime="20230602 21:04:38.167" endtime="20230602 21:04:38.296"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${deviceConnected}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20230602 21:04:38.296" endtime="20230602 21:04:38.297"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${deviceConnected}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230602 21:04:38.298" endtime="20230602 21:04:38.299"/>
+</kw>
+<status status="PASS" starttime="20230602 21:04:38.167" endtime="20230602 21:04:38.299"/>
+</kw>
+<kw name="Quando for realizado o teste do componente escolhido" library="componentesDigitais">
+<kw name="Make The Test For Component" library="testedeComponentes">
+<var>@{results}</var>
+<arg>${esquematico}</arg>
+<msg timestamp="20230602 21:07:20.743" level="INFO">é o recorddd {'_id': ObjectId('63fa2e06883c10175b86855f'), 'componente': 'OR', 'case1': {'entrada1': 0, 'entrada2': 0, 'saida': 0}, 'case2': {'entrada1': 0, 'entrada2': 1, 'saida': 1}, 'case3': {'entrada1': 1, 'entrada2': 0, 'saida': 1}, 'case4': {'entrada1': 1, 'entrada2': 1, 'saida': 1}}
+todo o values para escrever [(False, False), (False, True), (True, False), (True, True)]
+esse é o componentNam2e OR
+vai começarr
+line de escrita 0 1
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 False
+1
+valor do dado False no line 8
+vai começarr
+line de escrita 2 3
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 False
+1
+valor do dado False no line 10
+vai começarr
+line de escrita 4 5
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 False
+1
+valor do dado False no line 12
+vai começarr
+line de escrita 6 7
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 False
+1
+valor do dado False no line 14
+vai começarr
+line de escrita 0 1
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 True
+1
+valor do dado True no line 8
+vai começarr
+line de escrita 2 3
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 True
+1
+valor do dado True no line 10
+vai começarr
+line de escrita 4 5
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 True
+1
+valor do dado True no line 12
+vai começarr
+line de escrita 6 7
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 False
+valores escrito2 True
+1
+valor do dado True no line 14
+vai começarr
+line de escrita 0 1
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 False
+1
+valor do dado True no line 8
+vai começarr
+line de escrita 2 3
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 False
+1
+valor do dado True no line 10
+vai começarr
+line de escrita 4 5
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 False
+1
+valor do dado True no line 12
+vai começarr
+line de escrita 6 7
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 False
+1
+valor do dado True no line 14
+vai começarr
+line de escrita 0 1
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 True
+1
+valor do dado True no line 8
+vai começarr
+line de escrita 2 3
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 True
+1
+valor do dado True no line 10
+vai começarr
+line de escrita 4 5
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 True
+1
+valor do dado True no line 12
+vai começarr
+line de escrita 6 7
+N Lines 1 Sample Boolean Write (Error Expected): 
+valores escrito1 True
+valores escrito2 True
+1
+valor do dado True no line 14</msg>
+<msg timestamp="20230602 21:07:20.747" level="INFO">@{results} = [ [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] ]</msg>
+<status status="PASS" starttime="20230602 21:04:38.301" endtime="20230602 21:07:20.748"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>@{results}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230602 21:07:20.752" level="INFO">@{results} = [ [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] | [[True]] ]</msg>
+<status status="PASS" starttime="20230602 21:07:20.749" endtime="20230602 21:07:20.756"/>
+</kw>
+<status status="PASS" starttime="20230602 21:04:38.300" endtime="20230602 21:07:20.757"/>
+</kw>
+<kw name="Entao verifique que o componente esta funcionando" library="componentesDigitais">
+<kw name="Check Results" library="testedeComponentes">
+<var>${endResult}</var>
+<arg>${results}</arg>
+<msg timestamp="20230602 21:07:20.762" level="INFO">valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+valor de x True
+resultado final [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]</msg>
+<msg timestamp="20230602 21:07:20.762" level="INFO">${endResult} = True</msg>
+<status status="PASS" starttime="20230602 21:07:20.761" endtime="20230602 21:07:20.764"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${endResult}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20230602 21:07:20.765" endtime="20230602 21:07:20.767"/>
+</kw>
+<if>
+<branch type="IF" condition="${endResult}">
+<kw name="Log" library="BuiltIn">
+<arg>Testes Funcionaram</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230602 21:07:20.771" level="INFO">Testes Funcionaram</msg>
+<status status="PASS" starttime="20230602 21:07:20.769" endtime="20230602 21:07:20.771"/>
+</kw>
+<status status="PASS" starttime="20230602 21:07:20.768" endtime="20230602 21:07:20.772"/>
+</branch>
+<status status="PASS" starttime="20230602 21:07:20.768" endtime="20230602 21:07:20.772"/>
+</if>
+<status status="PASS" starttime="20230602 21:07:20.760" endtime="20230602 21:07:20.772"/>
+</kw>
+<doc>Caso de Testes de CI's escolhidos pelo usuário</doc>
+<status status="PASS" starttime="20230602 21:04:36.134" endtime="20230602 21:07:20.773"/>
+</test>
+<status status="PASS" starttime="20230602 21:04:34.521" endtime="20230602 21:07:20.777"/>
+</suite>
+<status status="PASS" starttime="20230602 21:04:34.515" endtime="20230602 21:07:20.783"/>
+</suite>
+<status status="PASS" starttime="20230602 21:04:34.478" endtime="20230602 21:07:20.790"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="JigadeTestes">JigadeTestes</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tests">JigadeTestes.Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="TestedeComponentes">JigadeTestes.Tests.TestedeComponentes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

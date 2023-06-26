@@ -1,0 +1,1 @@
+robot ./Tests/TestedeComponentes.robot & robotmetrics --inputpath ./Results/ --output output.xml
