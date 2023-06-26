@@ -6,7 +6,6 @@ from esquematico import return_esquematico_de_ligacao
 from database import return_expected_result,return_allLinesDaq_digitalVersion
 from nidaqmx.constants import (LineGrouping)
 
-#.\teste.bat
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -41,9 +40,7 @@ def check_results(results):
     for i in results:
         for j in i:
             for x in j:
-                print('valor de x',x)
-                listResult.append(x)
-    print('resultado final',listResult)            
+                listResult.append(x)            
     
     return len(set(listResult)) == 1 
 
@@ -143,88 +140,24 @@ def write_digital_ports(portasUtilizadas, values, componentName,expected_results
         lines.append(alllines)     
     readLines = get_DAQlines_to_read(record,lines,pinosSaidaUtilizados) 
     lines = mix_read_and_write_lines(allLines,readLines,componentName)  
-    print('todo o values para escrever',values)
     if len(componentName) > 0:  
-        print('esse é o componentNam2e',componentName)
         for value1,value2 in values:   
             for i in range(0, len(readLines)):
-                print('vai começarr')
                 keyValue = readLines[i]
                 with nidaqmx.Task() as task:
                     task.do_channels.add_do_chan(
                         "Dev1/port0/line" + lines[keyValue][0] + ":" + lines[keyValue][1], line_grouping=LineGrouping.CHAN_PER_LINE
                     )
-                    print('line de escrita',lines[keyValue][0],lines[keyValue][1])
-
-                    #SE O DELAY NAO RESOLVER
-                    #task.triggers.start_trigger.cfg_dig_edge_start_trig("/Dev1/StartTrigger")
-                    # Configura a leitura para ocorrer após a escrita
-                    #task.triggers.start_trigger.delay_units = nidaqmx.constants.DigitalWidthUnits.TICKS
-                    #task.triggers.start_trigger.delay = 20  # Ajuste o valor do atraso conforme necessário
-
                 
                     try:
-                        print("N Lines 1 Sample Boolean Write (Error Expected): ")
-                        print('valores escrito1',value1)
-                        print('valores escrito2',value2)
-                        print(task.write([value1, value2],auto_start=True))
-                        #PARA AJUSTAR NO DIA DOS TESTES
-                        #task.write([value1, value2],auto_start=True)
-                        #PODE SER NECESSARIO USAR ASSIM COM O TRIGGER
-                        #task.write([value1, value2],auto_start=False)
-                        #task.start()
-                        #time.sleep(2)
+                        task.write([value1, value2],auto_start=True)
+                        time.sleep(2)
                         results = read_digital_ports(keyValue,value1,value2,expected_results)
                         result.append(results)
                     except nidaqmx.DaqError as e:
                         print(e)
 
-                    #with nidaqmx.Task() as task2:
-                    #    task2.di_channels.add_di_chan("Dev1/port0/line8", line_grouping=LineGrouping.CHAN_PER_LINE)
-                    #    data = task2.read()
-
-                
-                
-              
-                #with nidaqmx.Task() as task:
-                #    try:
-                #        print("é o 1'Dev1/port0/line" + lines[keyValue][0] +"valor escrito=",value1 )
-                #        task.do_channels.add_do_chan(
-                #        "Dev1/port0/line" + lines[keyValue][0],
-                #        line_grouping=nidaqmx.constants.LineGrouping.CHAN_PER_LINE)
-                #        task.write(True,auto_start=True)
-                #        task.start()
-                #    except nidaqmx.DaqError as e:
-                #        print(e)
-                #        print('\n')
-                #with nidaqmx.Task() as task2:            
-                #    try:
-                #        print("é o 1'Dev1/port0/line" + lines[keyValue][1] +"valor escrito=",value2 )
-                #        task2.do_channels.add_do_chan(
-                #        "Dev1/port0/line" + lines[keyValue][1],
-                #        line_grouping=nidaqmx.constants.LineGrouping.CHAN_PER_LINE)
-                #        task2.write(True,auto_start=True)
-                #        task2.start()
-                    #    print("é o 2'Dev1/port0/line" + lines[keyValue][1] +"valor escrito=",value2)
-                    #    task2.do_channels.add_do_chan(
-                    #    "Dev1/port0/line" + lines[keyValue][1],
-                    #    line_grouping=LineGrouping.CHAN_FOR_ALL_LINES)
-                    #    task2.write(value2,auto_start=True)
-                    #    task2.start()
-                    #    print('lines',"Dev1/port0/line"+lines[keyValue][0]+ ":" +lines[keyValue][1])
-                    #    task2.do_channels.add_do_chan("Dev1/port0/line"+lines[keyValue][0]+ ":" +lines[keyValue][1],line_grouping=nidaqmx.constants.LineGrouping.CHAN_PER_LINE)
-                    #    #print('valores escritos',value1,value2)
-                    #    print
-                    #    task2.write([True,True],auto_start=True)
-                    #    task2.start()
-                        #results = read_digital_ports(keyValue,value1,value2,expected_results)
-                        #result.append(results)
-                #    except nidaqmx.DaqError as e:
-                 #       print(e)
-
-          
-    
-
+        
     return result
 
 def get_the_expected_results_for_the_correct_case(value1,value2,expected_results):
@@ -244,8 +177,6 @@ def read_digital_ports(line,value1,value2,expected_results):
                                     line_grouping=LineGrouping.CHAN_PER_LINE)
         time.sleep(10)
         data = task.read()
-        print('valor do dado',data, "no line",line)
-        #time.sleep(10)
         values = {'entrada1': value1, 'entrada2': value2, 'saida':data}
         allresults2 = compare_the_values(expectedResultForThisCase,values)
         allresults.append(allresults2)   
@@ -254,21 +185,17 @@ def read_digital_ports(line,value1,value2,expected_results):
 def check_device_connected():
   local = nidaqmx.system.System.local()
   for device in local.devices:
-    print('entrouuu')
-    print('device',device)
     print(f'Device Name: {device.name}, Product Type: {device.product_type}')
     print('Input channels:', [chan.name for chan in device.ai_physical_chans])
     print('Output channels:', [chan.name for chan in device.ao_physical_chans])
     return True
   return False
 
-if __name__ == '__main__':
-    esquematico=return_esquematico_de_ligacao("74HC08")
-    #print('todo o esquematico',esquematico) 
+#if __name__ == '__main__':
+    #esquematico=return_esquematico_de_ligacao("74HC08") 
     #device_connected = check_device_connected()
-    #make_the_component_power_supply(esquematico)
-    results = make_the_test_for_component(esquematico)
-    endResult = check_results(results)
-    print('valor de end',endResult)
+    #results = make_the_test_for_component(esquematico)
+    #endResult = check_results(results)
+    
 
 

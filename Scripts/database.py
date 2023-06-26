@@ -1,7 +1,3 @@
-#compando para gerar as bibliotecas
-#pip freeze > requirements.txt
-#comando para instalar elas
-#pip install -r requirements.txt
 from pymongo import MongoClient
 import json
 
@@ -31,7 +27,6 @@ def return_expected_result(componentName):
     collection=connect_to_database("ResultadosEsperados")
     cursor = collection.find({"componente":componentName})
     for record in cursor:
-        print('é o recorddd',record)
         return record
     
 

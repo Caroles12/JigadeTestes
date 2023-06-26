@@ -13,6 +13,6 @@
     "Numero do pino do DAQ(p0_10):57": "Numero do pino do componente para saida de sinal:6",
     "Numero do pino do DAQ(p0_12):60": "Numero do pino do componente para saida de sinal:8",
     "Numero do pino do DAQ(p0_14):62": "Numero do pino do componente para saida de sinal:11",
-    "Numero do pino do DAQ para alimentacao(+5V):42 ou 10": "Numero do pino do componente para alimentacao de5:14",
+    "Numero do pino do DAQ para alimentacao(+5V):42 ou 10": "Numero do pino do componente para alimentacao de5V:14",
     "Numero do pino GND do DAQ(DGND):64": "Numero do pino do componente para de GND0:7"
 }
